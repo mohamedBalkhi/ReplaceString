@@ -20,20 +20,24 @@
 </head>
 
 <body dir="rtl">
-
+    <div class="language">
+        <button id="arabic" class="btn btn-outline-primary">عربي</button>
+        <button id="english" class="btn btn-outline-danger">English</button>
+    </div>
     <div style="left: 50%;top: 50%;" class="lead s w-50 position-absolute translate-middle text-center">
         <h1 style="font-family: Vibes;" class="display-3 text-primary text-center mt-3">أداة إستبدال النص</h1>
         <div class="form-group my-2">
-            <label class="form-label text-muted float-end h4" for="search">الكلمة المراد البحث عنها</label>
+            <label id="search-label" class="form-label text-muted float-end h4" for="search">الكلمة المراد البحث
+                عنها</label>
             <input type="text" class="form-control" placeholder="الكلمة المطلوبة" id="search">
         </div>
         <div class="form-group my-2">
-            <label class="form-label text-muted float-end h4" for="new_word">الكلمة البديلة</label>
+            <label id="replace-label" class="form-label text-muted float-end h4" for="new_word">الكلمة البديلة</label>
             <input type="text" class="form-control" placeholder="الكلمة البديلة" id="new_word">
         </div>
         <button id="replace" class="btn btn-primary  w-50 h4">استبدال</button>
         <br>
-        <textarea style="resize: none;font-size: 1.3rem;" class="form-text form-control" name="text" id="text" cols="30"
+        <textarea style="resize: none;font-size: 1.3rem;" class="form-control" name="text" id="text" cols="30"
             rows="10">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة. لقد تم توليد هذا النص من مولد النص العربي. حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد. النص لن يبدو مقسمًا ولا يحوي أي أخطاء لغوية. مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص. حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع. ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملًا. دور مولد النص العربي أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذي يتحدث عنه التصميم فيظهر بشكل لا يليق. هذا النص يمكن أن يتم تركيبه على اي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ. غير منظم. غير منسق، أو حتى غير مفهوم. لأنه مازال نصًا بديلًا ومؤقتًا.</textarea>
     </div>
 
@@ -46,11 +50,44 @@
             const desiredWord = document.getElementById("search").value;
             const newWord = document.getElementById("new_word").value;
             const Regex = new RegExp(desiredWord, "gi");
-            let currText = document.getElementById("text").innerHTML;
+            console.log(`desired word: ${desiredWord}, new Word: ${newWord}, reg: ${Regex}`);
+            let currText = document.getElementById("text").value;
+            console.log(currText);
             currText = currText.replace(Regex, newWord);
-            document.getElementById("text").innerHTML = currText;
+            document.getElementById("text").value = currText;
         }
         document.getElementById("replace").addEventListener("click", replace);
+        document.getElementById("arabic").addEventListener("click", () => {
+            document.title = "أداة استبدال النص";
+            document.body.dir = "rtl";
+            document.querySelector("h1").innerHTML = "أداة استبدال النص";
+            document.getElementById("search-label").innerHTML = "الكلمة المراد البحث عنها";
+            document.getElementById("search").setAttribute("placeholder", "الكلمة المطلوبة");
+            document.getElementById("search").value = "";
+            document.getElementById("replace-label").innerHTML = "الكلمة البديلة";
+            document.getElementById("new_word").setAttribute("placeholder", "الكلمة البديلة");
+            document.getElementById("new_word").value = "";
+            document.getElementById("replace").innerHTML = "استبدال";
+            document.getElementById("search-label").classList.replace("float-start", "float-end");
+            document.getElementById("replace-label").classList.replace("float-start", "float-end");
+            document.getElementById("text").value = "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة. لقد تم توليد هذا النص من مولد النص العربي. حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد. النص لن يبدو مقسمًا ولا يحوي أي أخطاء لغوية. مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص. حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع. ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملًا. دور مولد النص العربي أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذي يتحدث عنه التصميم فيظهر بشكل لا يليق. هذا النص يمكن أن يتم تركيبه على اي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ. غير منظم. غير منسق، أو حتى غير مفهوم. لأنه مازال نصًا بديلًا ومؤقتًا."
+        })
+
+        document.getElementById("english").addEventListener("click", () => {
+            document.title = "Replace Text Tool";
+            document.body.dir = "ltr";
+            document.querySelector("h1").innerHTML = "Replace Text Tool";
+            document.getElementById("search-label").innerHTML = "Search word";
+            document.getElementById("search").setAttribute("placeholder", "Desired word");
+            document.getElementById("search").value = "";
+            document.getElementById("replace-label").innerHTML = "New Word";
+            document.getElementById("new_word").setAttribute("placeholder", "New word");
+            document.getElementById("new_word").value = "";
+            document.getElementById("replace").innerHTML = "Replace";
+            document.getElementById("search-label").classList.replace("float-end", "float-start");
+            document.getElementById("replace-label").classList.replace("float-end", "float-start");
+            document.getElementById("text").value = "This text is a sample of a replacable text, it was generated by a text generator tool, you can generate such texts easily to use in your projects, and it won't contain spelling mistakes , and won't look strange, or unorganized.";
+        })
     </script>
 </body>
 
